@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 Crypto Trading Game - Predict the Market!</title>
+    <link rel="stylesheet" href="styles.css">
+    <meta name="description" content="Test your crypto prediction skills! Predict whether Bitcoin will go bullish or bearish in this interactive trading game.">
+    <meta name="keywords" content="crypto, trading, game, bitcoin, prediction, blockchain, JBECP">
+</head>
+<body>
+    <!-- Enhanced Animated Background -->
+    <div class="space-background">
+        <div class="stars"></div>
+        <div class="moon"></div>
+        
+        <!-- Background Rocket Animation -->
+        <div class="background-rocket">🚀</div>
+    </div>
+
+    <!-- Market Trend Indicator -->
+    <div class="market-indicator" id="marketIndicator">
+        📊 Market Neutral
+    </div>
+
+    <div class="game-container">
+        <div class="header">
+            <h1>🚀 Crypto Trading Game</h1>
+            <p>Predict the next candle: Will it reach the moon? 🌙</p>
+        </div>
+
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-value" id="score">0</div>
+                <div>Score</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="streak">0</div>
+                <div>Streak</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="accuracy">0%</div>
+                <div>Accuracy</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="round">1</div>
+                <div>Round</div>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <div class="chart-title">BTC/USD - 1m Chart</div>
+            <div class="price-display" id="currentPrice">$45,234.56</div>
+            <div class="candlestick-chart" id="chart"></div>
+        </div>
+
+        <div class="game-controls">
+            <div class="result-message" id="resultMessage"></div>
+            <div class="prediction-buttons">
+                <button class="btn btn-bullish" id="bullishBtn" onclick="makePrediction('bullish')">
+                    TO THE MOON
+                </button>
+                <button class="btn btn-bearish" id="bearishBtn" onclick="makePrediction('bearish')">
+                    BEARISH
+                </button>
+            </div>
+            <div class="countdown" id="countdown"></div>
+        </div>
+    </div>
+
+    <!-- Enhanced Win Modal -->
+    <div class="win-modal" id="winModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeWinModal">&times;</button>
+            <div class="modal-icon">🎉</div>
+            <div style="font-size: 1.5em; color: #4ecdc4; font-weight: bold; margin-bottom: 10px;">
+                GREAT PREDICTION! 🌟
+            </div>
+            <div style="color: #fff; font-size: 1.1em;">
+                Your prediction was correct!
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

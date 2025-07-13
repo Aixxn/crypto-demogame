@@ -1,0 +1,448 @@
+<!-- Social Media Verification Gate -->
+<!-- Add this section to crypto.html before the game-container -->
+
+<div id="socialGate" class="social-gate-modal">
+    <div class="gate-content">
+        <div class="gate-header">
+            <h2>🚀 Join the Crypto Trading Community!</h2>
+            <p class="gate-subtitle">Support JBECP TIP MNL and unlock the game</p>
+        </div>
+        
+        <div class="organization-info">
+            <h3>Junior Blockchain Education Consortium of the Philippines - TIP MNL</h3>
+            <p>Empowering the next generation of blockchain innovators through education and practical experience.</p>
+        </div>
+        
+        <div class="requirements-container">
+            <h3>Complete these steps to access the game:</h3>
+            
+            <!-- Requirement 1: Page Like -->
+            <div class="requirement-item">
+                <div class="requirement-header">
+                    <input type="checkbox" id="pageLikeCheckbox" disabled>
+                    <span class="requirement-number">1</span>
+                    <label for="pageLikeCheckbox">Like our Facebook page</label>
+                </div>
+                <p class="requirement-description">
+                    Show your support by liking our official Facebook page
+                </p>
+                <button id="likePageButton" class="action-btn facebook-btn">
+                    <i class="fab fa-facebook-f"></i>
+                    Like Page
+                </button>
+            </div>
+            
+            <!-- Requirement 2: Post Sharing -->
+            <div class="requirement-item">
+                <div class="requirement-header">
+                    <input type="checkbox" id="postSharedCheckbox" disabled>
+                    <span class="requirement-number">2</span>
+                    <label for="postSharedCheckbox">Share about the game</label>
+                </div>
+                <p class="requirement-description">
+                    Share this game on your social media with the required hashtags:
+                    <strong>#JBECPTIPWAVE #JBECP</strong>
+                </p>
+                <div class="share-buttons">
+                    <button id="sharePostButton" class="action-btn facebook-btn">
+                        <i class="fab fa-facebook-f"></i>
+                        Share on Facebook
+                    </button>
+                    <button onclick="shareToTwitter()" class="action-btn twitter-btn">
+                        <i class="fab fa-twitter"></i>
+                        Share on Twitter
+                    </button>
+                    <button onclick="shareToLinkedIn()" class="action-btn linkedin-btn">
+                        <i class="fab fa-linkedin-in"></i>
+                        Share on LinkedIn
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Requirement 3: Hashtag Verification -->
+            <div class="requirement-item">
+                <div class="requirement-header">
+                    <input type="checkbox" id="hashtagsUsedCheckbox" disabled>
+                    <span class="requirement-number">3</span>
+                    <label for="hashtagsUsedCheckbox">Use required hashtags</label>
+                </div>
+                <p class="requirement-description">
+                    Ensure your post includes: <code>#JBECPTIPWAVE</code> and <code>#JBECP</code>
+                </p>
+                <div class="hashtag-display">
+                    <span class="hashtag">#JBECPTIPWAVE</span>
+                    <span class="hashtag">#JBECP</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="verification-section">
+            <button id="verifyGameAccess" class="verify-btn" disabled>
+                <i class="fas fa-lock"></i>
+                Complete Requirements First
+            </button>
+            
+            <p class="verification-note">
+                Your verification will be valid for 30 days. After that, you'll need to verify again.
+            </p>
+        </div>
+        
+        <div class="gate-footer">
+            <p class="support-text">
+                Thank you for supporting blockchain education in the Philippines! 🇵🇭
+            </p>
+            <div class="organization-links">
+                <a href="#" target="_blank" class="org-link">
+                    <i class="fas fa-globe"></i>
+                    Visit Website
+                </a>
+                <a href="#" target="_blank" class="org-link">
+                    <i class="fab fa-facebook"></i>
+                    Facebook Page
+                </a>
+                <a href="#" target="_blank" class="org-link">
+                    <i class="fas fa-envelope"></i>
+                    Contact Us
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Success Message Template -->
+<div id="verificationSuccess" class="verification-success" style="display: none;">
+    <div class="success-content">
+        <div class="success-icon">🎉</div>
+        <h3>Welcome to the Crypto Trading Game!</h3>
+        <p>Thank you for supporting JBECP TIP MNL!</p>
+        <p>Your game access is now active.</p>
+        <button onclick="this.parentElement.parentElement.style.display='none'" class="close-success">
+            Continue to Game
+        </button>
+    </div>
+</div>
+
+<!-- Instruction Modal Template -->
+<div id="instructionModal" class="instruction-modal" style="display: none;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Follow These Steps</h3>
+            <button class="close-modal" onclick="this.parentElement.parentElement.parentElement.style.display='none'">
+                &times;
+            </button>
+        </div>
+        <div class="modal-body">
+            <ol class="instruction-list">
+                <li>Like the "Junior Blockchain Education Consortium of the Philippines - TIP MNL" page</li>
+                <li>Return to this page</li>
+                <li>Click "Verify Like" to continue</li>
+            </ol>
+        </div>
+        <div class="modal-footer">
+            <button onclick="verifyLike()" class="verify-btn">Verify Like</button>
+            <button onclick="this.parentElement.parentElement.parentElement.style.display='none'" class="cancel-btn">
+                Cancel
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- CSS Styles for Social Gate -->
+<style>
+.social-gate-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.gate-content {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.gate-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.gate-header h2 {
+    color: #00d4ff;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, #00d4ff 0%, #ff3366 50%, #ffd700 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.gate-subtitle {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.organization-info {
+    background: rgba(0, 212, 255, 0.1);
+    border: 1px solid rgba(0, 212, 255, 0.3);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.organization-info h3 {
+    color: #00d4ff;
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+}
+
+.organization-info p {
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+    line-height: 1.6;
+}
+
+.requirements-container h3 {
+    color: #fff;
+    margin-bottom: 25px;
+    font-size: 1.4rem;
+}
+
+.requirement-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.requirement-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.requirement-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.requirement-number {
+    background: #00d4ff;
+    color: #000;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 10px;
+    font-size: 0.9rem;
+}
+
+.requirement-header label {
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-left: 10px;
+}
+
+.requirement-description {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.action-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.facebook-btn {
+    background: #1877f2;
+    color: white;
+}
+
+.facebook-btn:hover {
+    background: #166fe5;
+    transform: translateY(-2px);
+}
+
+.twitter-btn {
+    background: #1da1f2;
+    color: white;
+}
+
+.twitter-btn:hover {
+    background: #1a91da;
+    transform: translateY(-2px);
+}
+
+.linkedin-btn {
+    background: #0077b5;
+    color: white;
+}
+
+.linkedin-btn:hover {
+    background: #006ba1;
+    transform: translateY(-2px);
+}
+
+.action-btn.completed {
+    background: #00ff88;
+    color: #000;
+    cursor: default;
+}
+
+.hashtag-display {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.hashtag {
+    background: #00d4ff;
+    color: #000;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-weight: bold;
+}
+
+.verification-section {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.verify-btn {
+    background: linear-gradient(135deg, #666 0%, #444 100%);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: not-allowed;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.verify-btn.ready {
+    background: linear-gradient(135deg, #00ff88 0%, #00d4aa 100%);
+    color: #000;
+    cursor: pointer;
+    animation: readyPulse 2s ease-in-out infinite;
+}
+
+.verify-btn.ready:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 255, 136, 0.3);
+}
+
+@keyframes readyPulse {
+    0%, 100% { box-shadow: 0 0 0 rgba(0, 255, 136, 0.7); }
+    50% { box-shadow: 0 0 20px rgba(0, 255, 136, 0.7); }
+}
+
+.verification-note {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+    margin-top: 15px;
+    margin-bottom: 0;
+}
+
+.gate-footer {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.support-text {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+}
+
+.organization-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.org-link {
+    color: #00d4ff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.org-link:hover {
+    background: rgba(0, 212, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .gate-content {
+        padding: 20px;
+        margin: 10px;
+    }
+    
+    .gate-header h2 {
+        font-size: 2rem;
+    }
+    
+    .requirement-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .requirement-header label {
+        margin-left: 0;
+        margin-top: 5px;
+    }
+    
+    .organization-links {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+</style>
